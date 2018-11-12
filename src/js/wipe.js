@@ -45,23 +45,23 @@ function drawLine(context,x1,y1,x2,y2){
 //cas.addEventListener(eventClick,function(evt){},false)
 
 //在canvas画布上监听自定义事件"mousedown"，调用drawPoint函数
-cas.addEventListener("mousedown",function(evt){
+cas.addEventListener(clickEvtName,function(evt){
 	isMouseDown = true;
 	var event = evt || window.event;
 	//获取鼠标在视口的坐标，传递参数到drawPoint
-	moveX = event.clientX;
-	moveY = event.clientY;
+	moveX = device ?  event.touches[0].clientX : event.clientX;
+	moveY = device ?  event.touches[0].clientY : event.clientY;
 	drawPoint(context,moveX,moveY);
 },false);
 //为画布添加手势操作--手指点击响应
-cas.addEventListener("touchstart",function(evt){
+/*cas.addEventListener("touchstart",function(evt){
 	isMouseDown = true;
 	var event = evt || window.event;
 	//获取手指在视口的坐标，传递参数到drawPoint
 	moveX = event.touches[0].clientX;
 	moveY = event.touches[0].clientY;
 	drawPoint(context,moveX,moveY);
-},false);
+},false);*/
 
 //增加监听"mousemove",调用drawPoint函数
 cas.addEventListener("mousemove",function(evt){
