@@ -9,6 +9,10 @@ var isMouseDown = false;
 
 //device保存设备类型，如果是移动端则为true，PC端为false
 var device = (/android|webos|iPhone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+var clickEvtName = device ? 'touchstart' : 'mousedown';
+var moveEvtName = device? 'touchmove': 'mousemove';
+var endEvtName = device? 'touchend': 'mouseup';
+
 console.log( navigator.userAgent );
 console.log( device );
 
