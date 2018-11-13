@@ -9,12 +9,11 @@ var isMouseDown = false;
 
 //device保存设备类型，如果是移动端则为true，PC端为false
 var device = (/android|webos|iPhone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
-var clickEvtName = device ? 'touchstart' : 'mousedown';
-var moveEvtName = device? 'touchmove': 'mousemove';
-var endEvtName = device? 'touchend': 'mouseup';
-
 console.log( navigator.userAgent );
 console.log( device );
+var clickEvtName = device ? "touchstart" : "mousedown";
+var moveEvtName = device ? "touchmove" : "mousemove";
+var endEvtName = device ? "touchend" : "mouseup";
 
 //生成画布上的遮罩，默认为颜色#666
 function drawMask(context){
@@ -24,6 +23,7 @@ function drawMask(context){
 }
 //在画布上画半径为30的圆
 function drawPoint(context,moveX,moveY){
+	console.log("传递的实参个数："+ arguments.length);
 	context.save();
 	context.beginPath();
 	context.arc(moveX,moveY,radius,0,2*Math.PI);
@@ -32,6 +32,7 @@ function drawPoint(context,moveX,moveY){
 	context.restore();
 }
 function drawLine(context,x1,y1,x2,y2){
+	console.log("传递的实参个数："+ arguments.length);	
 	context.save();
 	context.lineCap = "round";
 	context.lineWidth = radius*2;	
@@ -64,14 +65,15 @@ cas.addEventListener(clickEvtName,function(evt){
 },false);*/
 
 //增加监听"mousemove",调用drawPoint函数
-cas.addEventListener("mousemove",function(evt){
+cas.addEventListener(moveEvtName,function(evt){
 	//判断，当isMouseDown为true时，才执行下面的操作
 	if( !isMouseDown ){
 		return false;
 	}else{
 		var event = evt || window.event;
-		var x2 = event.clientX;
-		var y2 = event.clientY;
+		event.preventDefault();
+		var x2 = device ? event.touches[0].clientX : event.clientX;
+		var y2 = device ? event.touches[0].clientY : event.clientY;
 		//drawPoint(context,a,b);
 		drawLine(context,moveX,moveY,x2,y2);
 		//每次的结束点变成下一次划线的开始点
@@ -80,7 +82,7 @@ cas.addEventListener("mousemove",function(evt){
 	}
 },false);
  //手指移动
-cas.addEventListener("touchmove",function(evt){
+/*cas.addEventListener("touchmove",function(evt){
 	//判断，当isMouseDown为true时，才执行下面的操作
 	if( !isMouseDown ){
 		return false;
@@ -95,10 +97,10 @@ cas.addEventListener("touchmove",function(evt){
 		moveX = x2;
 		moveY = y2;
 	}
-},false);
+},false);*/
 
-cas.addEventListener("mouseup",fn2,false);
-cas.addEventListener("touchend",fn2,false);
+cas.addEventListener(endEvtName,fn2,false);
+/*cas.addEventListener("touchend",fn2,false);*/
 function fn2(){
 	//还原isMouseDown 为false
 	isMouseDown = false;
