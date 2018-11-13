@@ -21,27 +21,7 @@ function drawMask(context){
 	context.fillRect(0,0,_w,_h);
 	context.globalCompositeOperation = "destination-out";
 }
-//在画布上画半径为30的圆
-function drawPoint(context,moveX,moveY){
-	console.log("传递的实参个数："+ arguments.length);
-	context.save();
-	context.beginPath();
-	context.arc(moveX,moveY,radius,0,2*Math.PI);
-	context.fillStyle = "red";
-	context.fill();
-	context.restore();
-}
-function drawLine(context,x1,y1,x2,y2){
-	console.log("传递的实参个数："+ arguments.length);	
-	context.save();
-	context.lineCap = "round";
-	context.lineWidth = radius*2;	
-	context.beginPath();
-	context.moveTo(x1,y1);
-	context.lineTo(x2,y2);
-	context.stroke();
-	context.restore();
-}
+//使用单个函数代替画点和画线函数
 function drawT(context,x1,y1,x2,y2){
 	if( arguments.length === 3){
 		//调用的是画点功能
