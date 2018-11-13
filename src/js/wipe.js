@@ -42,6 +42,30 @@ function drawLine(context,x1,y1,x2,y2){
 	context.stroke();
 	context.restore();
 }
+function drawT(context,x1,y1,x2,y2){
+	if( arguments.length === 3){
+		//调用的是画点功能
+		context.save();
+		context.beginPath();
+		context.arc(x1,y1,radius,0,2*Math.PI);
+		context.fillStyle = "red";
+		context.fill();
+		context.restore();		
+	}else if(arguments.length === 5){
+		//调用的是画线功能
+		context.save();
+		context.lineCap = "round";
+		context.lineWidth = radius*2;	
+		context.beginPath();
+		context.moveTo(x1,y1);
+		context.lineTo(x2,y2);
+		context.stroke();
+		context.restore();		
+	}else{
+		return false;
+	}
+}
+
 
 //cas.addEventListener(eventClick,function(evt){},false)
 
@@ -52,7 +76,7 @@ cas.addEventListener(clickEvtName,function(evt){
 	//获取鼠标在视口的坐标，传递参数到drawPoint
 	moveX = device ?  event.touches[0].clientX : event.clientX;
 	moveY = device ?  event.touches[0].clientY : event.clientY;
-	drawPoint(context,moveX,moveY);
+	drawT(context,moveX,moveY);
 },false);
 //为画布添加手势操作--手指点击响应
 /*cas.addEventListener("touchstart",function(evt){
@@ -75,7 +99,7 @@ cas.addEventListener(moveEvtName,function(evt){
 		var x2 = device ? event.touches[0].clientX : event.clientX;
 		var y2 = device ? event.touches[0].clientY : event.clientY;
 		//drawPoint(context,a,b);
-		drawLine(context,moveX,moveY,x2,y2);
+		drawT(context,moveX,moveY,x2,y2);
 		//每次的结束点变成下一次划线的开始点
 		moveX = x2;
 		moveY = y2;
