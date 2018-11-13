@@ -46,7 +46,6 @@ function drawT(context,x1,y1,x2,y2){
 	}
 }
 
-
 //cas.addEventListener(eventClick,function(evt){},false)
 
 //在canvas画布上监听自定义事件"mousedown"，调用drawPoint函数
