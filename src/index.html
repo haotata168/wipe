@@ -19,9 +19,29 @@
 	</style>
 </head>
 <body>
+<div class="parent">
 	<canvas id="cas" width="375" height="667"></canvas>
-	<span>在主分支的的修改</span>
-	<div>在db01分支上的修改 cv</div>
+</div>
 </body>
 </html>
 <script type="text/javascript" src="js/wipe.js"></script>
+<script>
+var wipeConfig = {
+	id:"cas",
+	coverType: "image", //取值类型color、image
+	color:"",
+	imgUrl:"image/wipe2.jpg", //前面的覆盖图
+	backImgUrl:"image/wipe1.jpg",			//背景图片
+	width:"375",		//canvas宽
+	height:"667",		//canvas高
+	radius:"20", //涂抹笔的半径
+	transpercent:50, //透明面积占整个画布的百分比，超出此数字显示全部画布
+	callback: wipedCallback //用户自定义回调函数名称
+}
+var cas01 = new Wipe(wipeConfig);
+function wipedCallback(percent){
+	if( percent > 50){
+		console.log("透明面积超过50%，查看底图");	
+	}
+}
+</script>
