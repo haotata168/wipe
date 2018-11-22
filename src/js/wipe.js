@@ -1,6 +1,6 @@
 /*
 author: db168@263.net
-data：	2018-11-16
+data：	水电费2018-11-16
 email:
 */
 function Wipe(obj){
